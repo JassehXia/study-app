@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.56.2",
+    "@clerk/nextjs": "^6.35.4",
     "@radix-ui/react-slot": "^1.2.4",
     "@shadcn/ui": "^0.0.4",
     "class-variance-authority": "^0.7.1",
