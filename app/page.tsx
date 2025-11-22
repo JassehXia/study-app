@@ -25,13 +25,26 @@ export default function LandingPage() {
   return (
     <main className="bg-white w-full">
 
-      {/* HERO SECTION */}
+      {/* HEADER + HERO */}
       <Header />
-      <Hero />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7 }}
+      >
+        <Hero />
+      </motion.div>
 
       {/* FEATURES SECTION */}
       <section className="w-full py-24 bg-blue-50">
-        <div className="container mx-auto px-6 md:px-12">
+        <motion.div
+          className="container mx-auto px-6 md:px-12"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
           <h2 className="text-4xl font-bold text-center text-blue-600 mb-12">
             Features
           </h2>
@@ -42,38 +55,52 @@ export default function LandingPage() {
                 key={feature.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15, duration: 0.6 }}
               >
-                <Card className="border-2 border-blue-200 hover:shadow-lg transition-shadow">
+                <Card className="border-2 border-blue-200 hover:shadow-xl transition-all hover:-translate-y-1">
                   <CardHeader>
-                    <CardTitle>{feature.title}</CardTitle>
+                    <CardTitle className="text-blue-700">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription>{feature.description}</CardDescription>
+                    <CardDescription className="text-gray-700">
+                      {feature.description}
+                    </CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* CALL TO ACTION */}
       <motion.section
         className="w-full py-24 bg-green-50"
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
       >
         <div className="container mx-auto px-6 md:px-12 text-center">
-          <h2 className="text-4xl font-bold text-green-700 mb-6">
+          <motion.h2
+            className="text-4xl font-bold text-green-700 mb-6"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             Ready to start learning smarter?
-          </h2>
-          <Button className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg shadow-md transition-all hover:scale-105">
-            Get Started Now
-          </Button>
+          </motion.h2>
+
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Button className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg shadow-lg transition-all hover:scale-105">
+              Get Started Now
+            </Button>
+          </motion.div>
         </div>
       </motion.section>
 
