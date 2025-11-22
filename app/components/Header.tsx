@@ -6,11 +6,13 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { isSignedIn } = useUser();
+    const pathname = usePathname();
 
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -22,8 +24,7 @@ export default function Header() {
 
     return (
         <header
-            className={`w-full fixed top-0 z-50 bg-white transition-shadow ${isScrolled ? "shadow-md" : ""
-                }`}
+            className={`w-full fixed top-0 z-50 bg-white transition-shadow ${isScrolled ? "shadow-md" : ""}`}
         >
             <div className="container mx-auto px-6 md:px-12 flex items-center justify-between h-16">
                 {/* Logo */}
@@ -33,18 +34,18 @@ export default function Header() {
 
                 {/* Desktop Menu */}
                 <nav className="hidden md:flex items-center gap-8">
-                    <a href="#home" className="text-gray-700 hover:text-blue-600 transition">
+                    <Link href="/" className="text-gray-700 hover:text-blue-600 transition">
                         Home
-                    </a>
-                    <a href="#features" className="text-gray-700 hover:text-blue-600 transition">
+                    </Link>
+                    <a href="/features" className="text-gray-700 hover:text-blue-600 transition">
                         Features
                     </a>
-                    <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition">
+                    <Link href="/pricing" className="text-gray-700 hover:text-blue-600 transition">
                         Pricing
-                    </a>
-                    <a href="#about" className="text-gray-700 hover:text-blue-600 transition">
+                    </Link>
+                    <Link href="/about" className="text-gray-700 hover:text-blue-600 transition">
                         About
-                    </a>
+                    </Link>
 
                     {/* Login / User Avatar */}
                     {isSignedIn ? (
@@ -68,22 +69,21 @@ export default function Header() {
 
             {/* Mobile Menu */}
             <div
-                className={`md:hidden bg-white border-t border-gray-200 overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? "max-h-96 py-4" : "max-h-0"
-                    }`}
+                className={`md:hidden bg-white border-t border-gray-200 overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? "max-h-96 py-4" : "max-h-0"}`}
             >
                 <nav className="flex flex-col gap-4 px-6">
-                    <a href="#home" className="text-gray-700 hover:text-blue-600 transition">
+                    <Link href="/" className="text-gray-700 hover:text-blue-600 transition">
                         Home
-                    </a>
-                    <a href="#features" className="text-gray-700 hover:text-blue-600 transition">
+                    </Link>
+                    <a href="/features" className="text-gray-700 hover:text-blue-600 transition">
                         Features
                     </a>
-                    <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition">
+                    <Link href="/pricing" className="text-gray-700 hover:text-blue-600 transition">
                         Pricing
-                    </a>
-                    <a href="#about" className="text-gray-700 hover:text-blue-600 transition">
+                    </Link>
+                    <Link href="/about" className="text-gray-700 hover:text-blue-600 transition">
                         About
-                    </a>
+                    </Link>
 
                     {/* Mobile Login / Avatar */}
                     {isSignedIn ? (

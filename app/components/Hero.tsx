@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export default function Hero() {
     return (
         <section className="relative bg-gradient-to-br from-white via-blue-50 to-green-50 w-full min-h-screen flex items-center overflow-hidden">
-            <div className="container mx-auto px-6 md:px-12 text-center md:text-left flex flex-col justify-center relative z-10">
+            <div className="container mx-auto px-6 md:px-12 text-center md:text-left flex flex-col justify-center relative z-10 space-y-8">
 
                 {/* Heading */}
                 <h1 className="text-5xl md:text-6xl font-bold text-blue-700 leading-tight">
@@ -14,18 +14,34 @@ export default function Hero() {
                 </h1>
 
                 {/* Subtext */}
-                <p className="mt-6 text-lg md:text-xl text-gray-700 max-w-2xl">
-                    Your AI-powered student companion. Organize your classes, generate resources, and track your learning progress all in one place.
+                <p className="text-lg md:text-xl text-gray-700 max-w-2xl">
+                    Your AI-powered student companion. Organize your classes, generate resources, and track your learning progress—all in one place.
                 </p>
 
                 {/* Buttons */}
-                <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-4">
                     <Button className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg shadow-md transition-all hover:scale-105">
                         Get Started
                     </Button>
                     <Button className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-8 py-4 rounded-lg text-lg shadow-md transition-all hover:scale-105">
                         Learn More
                     </Button>
+                </div>
+
+                {/* Stats Section */}
+                <div className="mt-12 flex flex-col sm:flex-row gap-8 justify-center md:justify-start text-center sm:text-left">
+                    <div>
+                        <p className="text-3xl font-bold text-blue-700">10k+</p>
+                        <p className="text-gray-600 mt-1">Active Students</p>
+                    </div>
+                    <div>
+                        <p className="text-3xl font-bold text-green-600">500k+</p>
+                        <p className="text-gray-600 mt-1">Resources Generated</p>
+                    </div>
+                    <div>
+                        <p className="text-3xl font-bold text-purple-600">98%</p>
+                        <p className="text-gray-600 mt-1">Success Rate</p>
+                    </div>
                 </div>
             </div>
 
