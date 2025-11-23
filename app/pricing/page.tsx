@@ -49,7 +49,7 @@ export default function PricingPage() {
                             Most Popular
                         </span>
 
-                        <h3 className="text-3xl font-bold mb-4">Pro</h3>
+                        <h3 className="text-3xl font-bold mb-4">Premium</h3>
                         <p className="mb-6 opacity-90">Best for serious students.</p>
 
                         <div className="text-5xl font-bold mb-6">$9<span className="text-lg opacity-80">/mo</span></div>
@@ -68,16 +68,16 @@ export default function PricingPage() {
 
                     {/* TEAM PLAN */}
                     <div className="group bg-white shadow-xl rounded-2xl border border-blue-200 p-10 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-                        <h3 className="text-2xl font-bold text-blue-600 mb-4">Team</h3>
+                        <h3 className="text-2xl font-bold text-blue-600 mb-4">Single Mothers</h3>
                         <p className="text-gray-600 mb-6">Perfect for study groups.</p>
 
-                        <div className="text-5xl font-bold text-gray-900 mb-6">$5<span className="text-lg text-gray-500">/user</span></div>
+                        <div className="text-5xl font-bold text-gray-900 mb-6">$1E36<span className="text-lg text-gray-500">/child</span></div>
 
                         <ul className="text-gray-700 space-y-3 mb-8">
-                            <li>✔ Shared study spaces</li>
-                            <li>✔ Collaboration tools</li>
-                            <li>✔ Group AI assistance</li>
-                            <li>✔ Student dashboard</li>
+                            <li>✔ Adjusted for inflation</li>
+                            <li>✔ Provides nothing new</li>
+                            <li>✔ AI husband chatbot to promvide support</li>
+                            <li>✔ AI generated suggestions</li>
                         </ul>
 
                         <button className="w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">
