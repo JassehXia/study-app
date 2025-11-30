@@ -2,16 +2,16 @@ import prisma from "@/lib/db";
 
 
 export default async function Test() {
-    const posts = await prisma.post.findMany()
+    const flashcards = await prisma.flashcard.findMany()
     return (
         <main style={{ padding: 20 }}>
-            <h1>Posts</h1>
+            <h1>Flashcards</h1>
 
             <ul>
-                {posts.map((p) => (
+                {flashcards.map((p) => (
                     <li key={p.id}>
-                        <strong>{p.title}</strong>
-                        <p>{p.content}</p>
+                        <strong>{p.question}</strong>
+                        <p>{p.answer}</p>
                     </li>
                 ))}
             </ul>
