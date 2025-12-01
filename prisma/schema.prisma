@@ -54,9 +54,10 @@ model Flashcard {
 }
 
 model FlashcardSet {
-  id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-
-  flashcards Flashcard[]
+  id          String      @id @default(cuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  title       String
+  description String
+  flashcards  Flashcard[]
 }
