@@ -5,8 +5,13 @@ import Header from "./components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+
 
 export default function LandingPage() {
+  useEffect(() => {
+    fetch("/api/user/init", { method: "POST" });
+  }, []);
   const features = [
     {
       title: "Organize Classes",
