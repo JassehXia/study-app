@@ -5,13 +5,22 @@ import Header from "./components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 
 export default function LandingPage() {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
   useEffect(() => {
     fetch("/api/user/init", { method: "POST" });
   }, []);
+
+  // Redirect when signed in
+  useEffect(() => {
+    if (isSignedIn) router.push("/dashboard");
+  }, [isSignedIn, router]);
   const features = [
     {
       title: "Organize Classes",
