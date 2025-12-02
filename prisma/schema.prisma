@@ -49,6 +49,7 @@ model FlashcardSet {
   description String
   title       String
   clerkId     String
+  createdAt   DateTime    @default(now())
   flashcards  Flashcard[]
   User        User        @relation(fields: [clerkId], references: [clerkId])
 }
