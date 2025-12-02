@@ -36,7 +36,7 @@ export default function DashboardPage() {
                 <section>
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-semibold text-blue-700">Flashcards</h2>
-                        <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-md">
+                        <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-md" onClick={() => window.location.href = '/dashboard/create-flashcard-set'}>
                             Create Flashcard
                         </Button>
                     </div>
