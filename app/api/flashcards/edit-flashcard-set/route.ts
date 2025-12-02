@@ -6,7 +6,7 @@ export async function PATCH(req: Request) {
         const { id, title, description } = body;
 
         if (!id) {
-            return NextResponse.json({ error: "Missing flashcard ID" }, { status: 400 })
+            return NextResponse.json({ error: "Missing flashcard set ID" }, { status: 400 })
         }
 
         const updated = await prisma.flashcardSet.update({
