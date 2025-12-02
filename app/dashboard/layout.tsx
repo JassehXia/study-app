@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     return (
         <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-green-50">
             <header className="w-full bg-white shadow-md py-4 px-6 flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-blue-700">Dashboard</h1>
+                <h1 className="text-2xl font-bold text-blue-700 cursor-pointer" onClick={() => window.location.href = '/dashboard'}>Dashboard</h1>
 
                 <div>
                     {/* Show user avatar if signed in */}
