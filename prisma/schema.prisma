@@ -15,8 +15,7 @@ model Post {
 }
 
 model User {
-  id           String         @id @default(cuid())
-  clerkId      String         @unique
+  clerkId      String         @id @unique
   createdAt    DateTime       @default(now())
   flashcards   Flashcard[]
   FlashcardSet FlashcardSet[]
@@ -25,12 +24,12 @@ model User {
 
 model Note {
   id        String   @id @default(cuid())
-  userId    String
+  clerkId   String
   title     String
   content   String
   source    String?
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [clerkId], references: [clerkId])
 }
 
 model Flashcard {

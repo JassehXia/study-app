@@ -16,6 +16,7 @@ export async function POST(req: Request) {
             flashcards?: FlashcardInput[];
         };
 
+        // Required fields check
         if (!clerkId || !title || !description) {
             return NextResponse.json(
                 { error: "Missing required fields" },
@@ -23,21 +24,17 @@ export async function POST(req: Request) {
             );
         }
 
+        // Create the flashcard set
         const flashcardSet = await prisma.flashcardSet.create({
             data: {
                 title,
                 description,
-                User: {
-                    connectOrCreate: {
-                        where: { clerkId },
-                        create: { clerkId }
-                    }
-                },
+                clerkId, // relation to User
                 flashcards: {
-                    create: (flashcards || []).map((fc: FlashcardInput) => ({
+                    create: (flashcards || []).map((fc) => ({
                         question: fc.question,
                         answer: fc.answer,
-                        user: { connect: { clerkId } } // ✅ required relation
+                        clerkId // relate each flashcard to the same user
                     }))
                 }
             },
@@ -47,6 +44,9 @@ export async function POST(req: Request) {
         return NextResponse.json(flashcardSet, { status: 201 });
     } catch (err) {
         console.error("Failed to create flashcard set:", err);
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+        return NextResponse.json(
+            { error: "Internal server error" },
+            { status: 500 }
+        );
     }
 }
