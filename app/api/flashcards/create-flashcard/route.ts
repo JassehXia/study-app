@@ -5,10 +5,10 @@ export async function POST(req: Request) {
     try {
         //Destructures into variables
         const body = await req.json();
-        const { question, answer, userId } = body;
+        const { question, answer, clerkId } = body;
 
         //Throws an error if there are missing fields
-        if (!question || !answer || !userId) {
+        if (!question || !answer || !clerkId) {
             return NextResponse.json(
                 { error: "Missing required fields" },
                 { status: 400 }
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
             data: {
                 question,
                 answer,
-                userId,
+                clerkId,
             },
         });
 

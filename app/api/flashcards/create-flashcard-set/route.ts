@@ -4,13 +4,15 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { userId, title, description } = body;
+        const { clerkId, title, description } = body;
 
         const flashcardSet = await prisma.flashcardSet.create({
             data: {
                 title,
                 description,
-                userId
+                User: {
+                    connect: { clerkId }
+                }
             }
         });
 
