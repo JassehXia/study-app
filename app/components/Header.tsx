@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -13,6 +14,7 @@ export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { isSignedIn } = useUser();
     const pathname = usePathname();
+    const router = useRouter();
 
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -21,6 +23,11 @@ export default function Header() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    //If the user is signed in, redirect them to the dashboard
+    useEffect(() => {
+        if (isSignedIn) router.push("/dashboard");
+    }, [isSignedIn, router]);
 
     return (
         <header
