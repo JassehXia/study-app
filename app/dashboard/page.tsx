@@ -111,7 +111,7 @@ export default function DashboardPage() {
               </Button>
               <Button
                 className="bg-green-500 text-white"
-                onClick={() => window.location.href = `/dashboard/review-flashcard-set/${selectedSet.id}`}
+                onClick={() => window.location.href = `/dashboard/review-flashcards/${selectedSet.id}`}
               >
                 Review
               </Button>
