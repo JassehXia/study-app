@@ -55,7 +55,9 @@ export default function DashboardPage() {
       <div className="max-w-6xl mx-auto space-y-12">
         {/* HEADER */}
         <section>
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-700">Welcome, {user?.firstName}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-700">
+            Welcome, {user?.firstName}
+          </h1>
           <p className="text-gray-700 mt-2">Here’s your personal study dashboard.</p>
         </section>
 
@@ -80,7 +82,7 @@ export default function DashboardPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7 }}
             >
-              {flashcardSets.map(set => (
+              {flashcardSets.map((set) => (
                 <Card
                   key={set.id}
                   className="border-2 border-blue-200 hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer"
@@ -99,25 +101,37 @@ export default function DashboardPage() {
         </section>
 
         {/* MODAL */}
-        {selectedSet && (
-          <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedSet.title}>
-            <p className="text-gray-700 mb-4">{selectedSet.description}</p>
-            <div className="flex gap-4">
-              <Button
-                className="bg-blue-500 text-white"
-                onClick={() => window.location.href = `/dashboard/edit-flashcard-set/${selectedSet.id}`}
-              >
-                Edit
-              </Button>
-              <Button
-                className="bg-green-500 text-white"
-                onClick={() => window.location.href = `/dashboard/review-flashcards/${selectedSet.id}`}
-              >
-                Review
-              </Button>
-            </div>
-          </Modal>
-        )}
+{selectedSet && (
+  <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedSet.title}>
+    <p className="text-gray-700 mb-6">{selectedSet.description}</p>
+
+    <div className="flex flex-col gap-4">
+      <Button
+        className="bg-green-500 text-white w-full"
+        onClick={() => window.location.href = `/dashboard/learn/${selectedSet.id}`}
+      >
+        Learn Mode
+      </Button>
+
+      <Button
+        className="bg-blue-500 text-white w-full"
+        onClick={() => window.location.href = `/dashboard/review-flashcards/${selectedSet.id}`}
+      >
+        Review
+      </Button>
+
+      <Button
+        className="bg-blue-500 text-white w-full"
+        onClick={() => window.location.href = `/dashboard/edit-flashcard-set/${selectedSet.id}`}
+      >
+        Edit
+      </Button>
+
+    </div>
+  </Modal>
+)}
+
+
       </div>
     </main>
   );
