@@ -3,6 +3,9 @@ import { PDFParse } from "pdf-parse";
 import OpenAI from "openai";
 
 export const uploadPDF = async (req: Request, res: Response) => {
+    console.log("uploadPDF route hit");
+    console.log("req.file:", req.file);
+    console.log("req.body:", req.body);
     try {
         if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
@@ -20,7 +23,14 @@ export const uploadPDF = async (req: Request, res: Response) => {
             model: "gpt-4o-mini",
             messages: [
                 { role: "system", content: "You are a helpful assistant that generates study notes." },
-                { role: "user", content: `Create concise notes and 5 practice questions from:\n\n${text}` }
+                { role: "user", content: `Create concise flashcards for the pdf. Do it in such a format where each flashcard is separated by a double newline ex:
+                    
+                    Question1
+                    Answer1
+                    
+                    Question2
+                    Answer2
+                    :\n\n${text}` }
             ],
             temperature: 0.5,
         });

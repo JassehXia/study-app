@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { uploadPDF } from "../controllers/upload.controller";
 import multer from "multer";
+import { uploadPDF } from "../controllers/upload.controller";
 
 const router = Router();
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+
+// memory storage -> lets us access req.file.buffer
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.post("/", upload.single("file"), uploadPDF);
 
