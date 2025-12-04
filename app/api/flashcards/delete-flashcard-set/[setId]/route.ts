@@ -1,23 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
-export async function DELETE(req: NextRequest, { params }: { params: { setId: string } }) {
-  const { setId } = params;
+interface Context {
+  params: {
+    setId: string;
+  };
+}
+
+export async function DELETE(req: NextRequest, context: Context) {
+  // Unwrap the promise
+  const params = await context.params;
+  const setId = params.setId as string;
+
+  if (!setId) {
+    return NextResponse.json({ error: "Missing flashcard set ID" }, { status: 400 });
+  }
 
   try {
-    // Optional: Delete all flashcards in the set first
-    await prisma.flashcard.deleteMany({
-      where: { flashcardSetId: setId },
-    });
-
-    // Delete the flashcard set itself
-    await prisma.flashcardSet.delete({
+    // Cascade delete flashcards automatically
+    const deletedSet = await prisma.flashcardSet.delete({
       where: { id: setId },
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, deletedSet });
   } catch (err: unknown) {
-    console.error(err);
-    return NextResponse.json({ error: "Failed to delete flashcard set" }, { status: 500 });
+    console.error("Failed to delete flashcard set:", err);
+
+    if ((err as { code?: string }).code === "P2025") {
+      return NextResponse.json({ error: "Flashcard set not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      { error: "Failed to delete flashcard set" },
+      { status: 500 }
+    );
   }
 }

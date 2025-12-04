@@ -39,7 +39,7 @@ model Flashcard {
   answer         String
   createdAt      DateTime      @default(now())
   flashcardSetId String?
-  flashcardSet   FlashcardSet? @relation(fields: [flashcardSetId], references: [id])
+  flashcardSet   FlashcardSet? @relation(fields: [flashcardSetId], references: [id], onDelete: Cascade)
   user           User          @relation(fields: [clerkId], references: [clerkId])
 }
 
@@ -49,6 +49,7 @@ model FlashcardSet {
   title       String
   clerkId     String
   createdAt   DateTime    @default(now())
-  flashcards  Flashcard[]
+  flashcards  Flashcard[] 
   User        User        @relation(fields: [clerkId], references: [clerkId])
 }
+
