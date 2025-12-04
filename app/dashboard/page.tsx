@@ -127,6 +127,26 @@ export default function DashboardPage() {
         Edit
       </Button>
 
+      <Button
+  className="bg-red-500 text-white w-full"
+  onClick={async () => {
+    if (!confirm("Are you sure you want to delete this flashcard set? This cannot be undone.")) return;
+
+    try {
+      const res = await fetch(`/api/flashcards/delete-flashcard-set/${selectedSet.id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete flashcard set");
+
+      // Redirect after deletion
+      window.location.href = "/dashboard";
+    } catch (err) {
+      alert((err as Error).message);
+    }
+  }}
+>
+  Delete
+</Button>
+
+
     </div>
   </Modal>
 )}

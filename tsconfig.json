@@ -36,7 +36,7 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "backend/tsconfig.json"
-  ],
+, "app/api/flashcards/update-flashcard-set"  ],
   "exclude": [
     "node_modules"
   ]
