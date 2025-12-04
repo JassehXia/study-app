@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { PDFParse } from "pdf-parse";
 
+/**
+ * Upload a PDF file and parse its text using pdf-parse.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @returns {Promise<Response>} Promise resolving to an Express response object containing the parsed text of the uploaded PDF file.
+ * @throws {Error} If the uploaded file is not a PDF or is not a text-based PDF.
+ */
 export const uploadPDF = async (req: Request, res: Response) => {
     try {
         if (!req.file) {
