@@ -25,11 +25,20 @@ export const uploadPDF = async (req: Request, res: Response) => {
                 { role: "system", content: "You are a helpful assistant that generates study notes." },
                 { role: "user", content: `Create concise flashcards for the pdf. Do it in such a format where each flashcard is separated by a double newline ex:
                     
-                    Question1
-                    Answer1
+                    {Question}
+                    {Answer}
                     
-                    Question2
-                    Answer2
+                    {Question}
+                    {Answer}
+
+                    {Question}
+                    {Answer}
+
+                    -- Purely generate flashcards, no title or anything strictly that format as mentioned
+                    -- No strange trailing spaces or symbols like $,#,%,^,&, etc..
+                    -- If possible create at least 20 flashcards, the more the better
+                    -- Try to get in as many definitions as possible that make sense
+                    -- Don't halluinate information, only use whats in the pdf
                     :\n\n${text}` }
             ],
             temperature: 0.5,
