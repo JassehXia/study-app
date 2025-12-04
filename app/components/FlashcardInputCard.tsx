@@ -29,7 +29,7 @@ export default function FlashcardInputCard({ index, question, answer, onChange, 
                     value={answer}
                     onChange={(e) => onChange(index, "answer", e.target.value)}
                 />
-                <Button variant="destructive" onClick={() => onDelete(index)} className="mt-2 hover:bg-red-600">
+                <Button variant="destructive" onClick={() => onDelete(index)} className="mt-2 hover:bg-red-600 dark:hover:bg-red-700 cursor-pointer">
                     Remove
                 </Button>
             </CardContent>

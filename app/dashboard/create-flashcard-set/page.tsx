@@ -144,8 +144,9 @@ export default function UploadFlashcardsPage() {
         <input
           type="file"
           accept="application/pdf"
-          className="w-full p-3 border border-blue-300 rounded-lg"
+          className="w-full p-3 border border-blue-300 rounded-lg hover:bg-blue-50 cursor-pointer"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          
         />
 
         <Button
