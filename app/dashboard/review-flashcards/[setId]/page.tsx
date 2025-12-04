@@ -19,16 +19,16 @@ interface FlashcardSet {
 }
 
 export default function ReviewFlashcardSetPage() {
-  const { id } = useParams(); // id from URL
+  const { setId } = useParams(); // id from URL
   const { user } = useUser();
   const [flashcardSet, setFlashcardSet] = useState<FlashcardSet | null>(null);
 
   useEffect(() => {
-    if (!user || !id) return;
+    if (!user || !setId) return;
 
     const fetchSet = async () => {
       try {
-        const res = await fetch(`/api/flashcard-sets/${id}?clerkId=${user.id}`)
+        const res = await fetch(`/api/user/flashcard-sets/${setId}?clerkId=${user.id}`);
         if (!res.ok) throw new Error("Failed to fetch flashcard set");
         const data: FlashcardSet = await res.json();
         setFlashcardSet(data);
@@ -38,7 +38,7 @@ export default function ReviewFlashcardSetPage() {
     };
 
     fetchSet();
-  }, [user, id]);
+  }, [user, setId]);
 
   if (!flashcardSet) return <p>Loading...</p>;
 
