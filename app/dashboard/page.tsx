@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { useUser } from "@clerk/nextjs";
+import Modal from "@/app/components/Modal";
 
 interface FlashcardSet {
   id: string;
@@ -16,6 +17,9 @@ export default function DashboardPage() {
   const { user } = useUser();
   const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [selectedSet, setSelectedSet] = useState<FlashcardSet | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -36,10 +40,19 @@ export default function DashboardPage() {
     fetchSets();
   }, [user]);
 
+  const openModal = (set: FlashcardSet) => {
+    setSelectedSet(set);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedSet(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-green-50 p-6">
       <div className="max-w-6xl mx-auto space-y-12">
-
         {/* HEADER */}
         <section>
           <h1 className="text-4xl md:text-5xl font-bold text-blue-700">Welcome, {user?.firstName}</h1>
@@ -71,7 +84,7 @@ export default function DashboardPage() {
                 <Card
                   key={set.id}
                   className="border-2 border-blue-200 hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer"
-                  onClick={() => window.location.href = `/dashboard/flashcard-set/${set.id}`}
+                  onClick={() => openModal(set)}
                 >
                   <CardHeader>
                     <CardTitle className="text-blue-700">{set.title}</CardTitle>
@@ -85,6 +98,26 @@ export default function DashboardPage() {
           )}
         </section>
 
+        {/* MODAL */}
+        {selectedSet && (
+          <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedSet.title}>
+            <p className="text-gray-700 mb-4">{selectedSet.description}</p>
+            <div className="flex gap-4">
+              <Button
+                className="bg-blue-500 text-white"
+                onClick={() => window.location.href = `/dashboard/edit-flashcard-set/${selectedSet.id}`}
+              >
+                Edit
+              </Button>
+              <Button
+                className="bg-green-500 text-white"
+                onClick={() => window.location.href = `/dashboard/review-flashcard-set/${selectedSet.id}`}
+              >
+                Review
+              </Button>
+            </div>
+          </Modal>
+        )}
       </div>
     </main>
   );
