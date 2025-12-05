@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { useUser } from "@clerk/nextjs";
 import Modal from "@/app/components/Modal";
+import { useRouter } from "next/navigation";
 
 interface FlashcardSet {
   id: string;
@@ -15,9 +16,10 @@ interface FlashcardSet {
 
 export default function DashboardPage() {
   const { user } = useUser();
+  const router = useRouter();
+
   const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [selectedSet, setSelectedSet] = useState<FlashcardSet | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -67,7 +69,7 @@ export default function DashboardPage() {
             <h2 className="text-2xl font-semibold text-blue-700">Flashcard Sets</h2>
             <Button
               className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-md"
-              onClick={() => window.location.href = '/dashboard/create-flashcard-set'}
+              onClick={() => router.push('/dashboard/create-flashcard-set')}
             >
               Create Flashcard
             </Button>
@@ -101,59 +103,51 @@ export default function DashboardPage() {
         </section>
 
         {/* MODAL */}
-{selectedSet && (
-  <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedSet.title}>
-    <p className="text-gray-700 mb-6">{selectedSet.description}</p>
+        {selectedSet && (
+          <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedSet.title}>
+            <p className="text-gray-700 mb-6">{selectedSet.description}</p>
 
-    <div className="flex flex-col gap-4">
-      <Button
-        className="bg-green-500 text-white w-full"
-        onClick={() => window.location.href = `/dashboard/learn/${selectedSet.id}`}
-      >
-        Learn Mode
-      </Button>
+            <div className="flex flex-col gap-4">
+              <Button
+                className="bg-green-500 text-white w-full"
+                onClick={() => router.push(`/dashboard/learn/${selectedSet.id}`)}
+              >
+                Learn Mode
+              </Button>
 
-      <Button
-        className="bg-blue-500 text-white w-full"
-        onClick={() => window.location.href = `/dashboard/review-flashcards/${selectedSet.id}`}
-      >
-        Review
-      </Button>
+              <Button
+                className="bg-blue-500 text-white w-full"
+                onClick={() => router.push(`/dashboard/review-flashcards/${selectedSet.id}`)}
+              >
+                Review
+              </Button>
 
-      <Button
-        className="bg-blue-500 text-white w-full"
-        onClick={() => window.location.href = `/dashboard/edit-flashcard-set/${selectedSet.id}`}
-      >
-        Edit
-      </Button>
+              <Button
+                className="bg-blue-500 text-white w-full"
+                onClick={() => router.push(`/dashboard/edit-flashcard-set/${selectedSet.id}`)}
+              >
+                Edit
+              </Button>
 
-      <Button
-  className="bg-red-500 text-white w-full"
-  onClick={async () => {
-    if (!selectedSet || !confirm("Are you sure you want to delete this flashcard set? This cannot be undone.")) return;
-
-    try {
-      const res = await fetch(`/api/flashcards/delete-flashcard-set/${selectedSet.id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Failed to delete flashcard set");
-
-      // Remove from local state instead of full reload
-      setFlashcardSets(prev => prev.filter(set => set.id !== selectedSet.id));
-      closeModal();
-    } catch (err) {
-      alert((err as Error).message);
-    }
-  }}
->
-  Delete
-</Button>
-
-
-
-    </div>
-  </Modal>
-)}
-
-
+              <Button
+                className="bg-red-500 text-white w-full"
+                onClick={async () => {
+                  if (!selectedSet || !confirm("Are you sure you want to delete this flashcard set?")) return;
+                  try {
+                    const res = await fetch(`/api/flashcards/delete-flashcard-set/${selectedSet.id}`, { method: "DELETE" });
+                    if (!res.ok) throw new Error("Failed to delete flashcard set");
+                    setFlashcardSets(prev => prev.filter(set => set.id !== selectedSet.id));
+                    closeModal();
+                  } catch (err) {
+                    alert((err as Error).message);
+                  }
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+          </Modal>
+        )}
       </div>
     </main>
   );
