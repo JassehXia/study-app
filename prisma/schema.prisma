@@ -20,6 +20,7 @@ model User {
   flashcards   Flashcard[]
   FlashcardSet FlashcardSet[]
   notes        Note[]
+  pdfs  Pdf[]
 }
 
 model Note {
@@ -51,5 +52,14 @@ model FlashcardSet {
   createdAt   DateTime    @default(now())
   flashcards  Flashcard[] 
   User        User        @relation(fields: [clerkId], references: [clerkId])
+}
+
+model Pdf {
+  id        String   @id @default(cuid())
+  clerkId   String
+  url       String   // local path for now; later will switch to UploadThing/S3 URL
+  name      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [clerkId], references: [clerkId])
 }
 
